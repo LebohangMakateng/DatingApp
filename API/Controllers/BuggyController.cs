@@ -27,22 +27,12 @@ namespace API.Controllers
         [HttpGet("not-found")]
         public ActionResult<AppUser> GetNotFound()
         {
-            try
-            {
 
-                var thing = _context.Users.Find(-1);
+            var thing = _context.Users.Find(-1);
 
-                if (thing == null) return NotFound();
+            if (thing == null) return NotFound();
 
-                return Ok(thing);
-
-            }
-
-            catch (Exception Ex)
-            {
-                return StatusCode(500, "Computer says no!");
-
-            }
+            return Ok(thing);
 
         }
 
