@@ -10,37 +10,37 @@ import { environment } from 'src/environments/environment';
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
-  private currentUserSource = new ReplaySubject<User>(1) ;
+  private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  login(model: any){
-    return this.http.post<User>(this.baseUrl + 'accont/login', model).pipe(
+  login(model: any) {
+    return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
-        const user = response;
+        const user = response as User;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
       })
-     )
+    );
   }
 
-  register(model:any) {
-     return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
-       map((user: User) => {
-         if (user) {
-           localStorage.setItem('user', JSON.stringify(user));
-           this.currentUserSource.next(user);
-         }
-       })
-     )
+
+  register(model: any) {
+    return this.http.post<User>(this.baseUrl + 'Account/register', model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.currentUserSource.next(user);
+        }
+      })
+    )
   }
 
-  setCurrentUser(user:User) {
+  setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
-    
   }
 
   logout() {

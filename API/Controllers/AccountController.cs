@@ -10,6 +10,7 @@ using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -24,6 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<ActionResult<UserDto>> Register( RegisterDto registerDto)
         { 
             if(await UserExists(registerDto.Username)) return BadRequest("Username is taken");
@@ -50,6 +52,7 @@ namespace API.Controllers
 
         
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.UserName);
@@ -72,6 +75,7 @@ namespace API.Controllers
             };
         }
 
+        [AllowAnonymous]
         private async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
