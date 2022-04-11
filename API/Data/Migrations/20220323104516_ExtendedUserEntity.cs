@@ -7,16 +7,6 @@ namespace API.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "PassswordSalt",
-                table: "Users",
-                newName: "PasswordSalt");
-
-            migrationBuilder.RenameColumn(
-                name: "PassswordHash",
-                table: "Users",
-                newName: "PasswordHash");
-
             migrationBuilder.AddColumn<string>(
                 name: "City",
                 table: "Users",
@@ -152,16 +142,6 @@ namespace API.Data.Migrations
             migrationBuilder.DropColumn(
                 name: "LookingFor",
                 table: "Users");
-
-            migrationBuilder.RenameColumn(
-                name: "PasswordSalt",
-                table: "Users",
-                newName: "PassswordSalt");
-
-            migrationBuilder.RenameColumn(
-                name: "PasswordHash",
-                table: "Users",
-                newName: "PassswordHash");
         }
     }
 }

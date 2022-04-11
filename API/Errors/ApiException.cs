@@ -9,15 +9,12 @@ namespace API.Errors
     {
         public ApiException(int statusCode, string message = null, string details = null)
         {
-            this.statusCode = statusCode;
+            StatusCode = statusCode;
             Message = message;
             Details = details;
         }
-
-        public int statusCode { get; set; }
-
+        public int StatusCode { get; set; }
         public string Message { get; set; }
-
-        public string Details {get; set;}
+        public string Details { get; set; }
     }
 }

@@ -8,13 +8,13 @@ namespace API.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<byte[]>(
-                name: "PassswordHash",
+                name: "PasswordHash",
                 table: "Users",
                 type: "BLOB",
                 nullable: true);
 
             migrationBuilder.AddColumn<byte[]>(
-                name: "PassswordSalt",
+                name: "PasswordSalt",
                 table: "Users",
                 type: "BLOB",
                 nullable: true);
@@ -23,11 +23,11 @@ namespace API.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "PassswordHash",
+                name: "PasswordHash",
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "PassswordSalt",
+                name: "PasswordSalt",
                 table: "Users");
         }
     }

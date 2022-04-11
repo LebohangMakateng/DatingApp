@@ -20,7 +20,7 @@ using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using API.Extentions;
+using API.Extensions;
 using API.Middleware;
 
 namespace API
