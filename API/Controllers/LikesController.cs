@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.Entities;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
@@ -35,7 +36,7 @@ namespace API.Controllers
 
             if (userLike != null) return BadRequest("You already like this user");
 
-            userLike = new Entities.UserLike
+            userLike = new UserLike
             {
                 SourceUserId = sourceUserId,
                 LikedUserId = likedUser.Id
