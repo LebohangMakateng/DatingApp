@@ -4,5 +4,6 @@ export interface User{
     photoUrl: string;
     KnownAs: string;
     gender: string;
+    roles: string[];
 }
 
