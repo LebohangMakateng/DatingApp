@@ -71,6 +71,9 @@ namespace API.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.ApplyUtcDateTimeConverter();
+
+            //https://docs.microsoft.com/en-us/ef/core/querying/filters
+            builder.Entity<Photo>().HasQueryFilter(p => p.IsApproved);
         }
     }
 

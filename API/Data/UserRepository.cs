@@ -23,12 +23,26 @@ namespace API.Data
             _context = context;
         }
 
-        public async Task<MemberDto> GetMemberAsync(string username)
+        public async Task<MemberDto> GetMemberAsync(string username, bool IsCurrentUser)
         {
-            return await _context.Users
+            ////https://docs.microsoft.com/en-us/ef/core/querying/filters
+
+            //var user = User.UserName;
+
+            var query = _context.Users
                 .Where(x => x.UserName == username)
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
+                //.SingleOrDefaultAsync()
+                .AsQueryable();
+                //.IgnoreQuery
+
+            if(IsCurrentUser)
+            {
+                //IsCurrentUser: user == username
+                query = query.IgnoreQueryFilters();
+            }
+
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task<PagedList<MemberDto>> GetMembersAsync( UserParams  userParams)
