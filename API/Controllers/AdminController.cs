@@ -15,9 +15,9 @@ namespace API.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPhotoRepository _photoRepository;
-        private readonly PhotoService _photoService;
+        private readonly IPhotoService _photoService;
         public AdminController(UserManager<AppUser> userManager, IPhotoRepository photoRepository,
-             IUnitOfWork unitOfWork, PhotoService photoService)
+             IUnitOfWork unitOfWork, IPhotoService photoService)
         {
             _photoService = photoService;
             _unitOfWork = unitOfWork;
@@ -70,7 +70,8 @@ namespace API.Controllers
         [HttpGet("photos-to-moderate")]
         public async Task<ActionResult> GetPhotosForModeration()
         {
-            var photos = await _photoRepository.GetUnapprovedPhotos();
+            //var photos = await _photoRepository.GetUnapprovedPhotos();
+            var photos = await _unitOfWork.PhotoRepository.GetUnapprovedPhotos();
             return Ok(photos);
         }
 
@@ -79,7 +80,8 @@ namespace API.Controllers
         [HttpGet("approve-photo/{photoId}")]
         public async Task<ActionResult> ApprovePhoto(int photoId)
         {
-            var photo = await _photoRepository.GetPhotoById(photoId);
+            //var photo = await _photoRepository.GetPhotoById(photoId);
+            var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
             photo.IsApproved = true;
 
             var user = await _unitOfWork.UserRepository.GetUserByPhotoId(photoId);
@@ -96,7 +98,8 @@ namespace API.Controllers
         [HttpPost("reject-Photo/{photoId}")]
         public async Task<ActionResult> RejectPhoto(int photoId)
         {
-            var photo = await _photoRepository.GetPhotoById(photoId);
+            //var photo = await _photoRepository.GetPhotoById(photoId);
+            var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
 
             if (photo.PublicId != null)
             {
@@ -105,12 +108,13 @@ namespace API.Controllers
 
                 if (result.Result == "ok")
                 {
-                    _photoRepository.RemovePhoto(photo);
+                    //_photoRepository.RemovePhoto(photo);
+                    _unitOfWork.PhotoRepository.RemovePhoto(photo);
                 }
             }
             else
             {
-                _photoRepository.RemovePhoto(photo);
+                _unitOfWork.PhotoRepository.RemovePhoto(photo);
             }
 
             await _unitOfWork.Complete();
