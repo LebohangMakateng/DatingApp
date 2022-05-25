@@ -77,11 +77,12 @@ namespace API.Controllers
 
         [Authorize(Policy = "ModeratePhotoRole")]
         // [HttpDelete("delete-photo/{photoId}")]
-        [HttpGet("approve-photo/{photoId}")]
+        [HttpPost("approve-photo/{photoId}")]
         public async Task<ActionResult> ApprovePhoto(int photoId)
         {
             //var photo = await _photoRepository.GetPhotoById(photoId);
             var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
+            
             photo.IsApproved = true;
 
             var user = await _unitOfWork.UserRepository.GetUserByPhotoId(photoId);
