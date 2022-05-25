@@ -20,4 +20,16 @@ export class AdminService {
     return this.http.post(this.baseUrl + 'admin/edit-roles/' + username + '?roles=' + roles, {});
   }
 
+  getPhotosForApproval() {
+
+  }
+
+  approvePhoto(photoid: number) {
+
+  }
+
+  rejectPhoto(photoid: number) {
+    
+  }
+
 }

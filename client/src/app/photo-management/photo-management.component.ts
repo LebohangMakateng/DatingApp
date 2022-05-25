@@ -11,5 +11,17 @@ export class PhotoManagementComponent implements OnInit {
 
   ngOnInit(): void {
   }
+ 
+  getphotosForApproval() {
+    
+  }
+
+  approvePhoto(photoid) {
+
+  }
+
+  rejectphoto(photoid) {
+    
+  }
 
 }
