@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { RolesModalComponent } from '../modals/roles-modal/roles-modal.component';
 import { User } from '../_models/user';
 
 @Injectable({
@@ -21,15 +22,15 @@ export class AdminService {
   }
 
   getPhotosForApproval() {
-
+      return this.http.get(this.baseUrl + 'admin/photos-to-moderate');
   }
 
   approvePhoto(photoid: number) {
-
+      return this.http.post(this.baseUrl + 'admin/approve-photo' + photoid, {});
   }
 
   rejectPhoto(photoid: number) {
-    
+      return this.http.post(this.baseUrl + 'admin/reject-photo/' + photoid, {});
   }
 
 }
