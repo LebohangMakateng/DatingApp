@@ -3,14 +3,15 @@ import { Member } from '../_models/member';
 import { Pagination } from '../_models/Pagination';
 import {MembersService} from '../_services/members.service'
 
+
 @Component({
-  selector: 'app-lists',
-  templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.css']
+  selector: 'app-vip',
+  templateUrl: './vip.component.html',
+  styleUrls: ['./vip.component.css']
 })
-export class ListsComponent implements OnInit {
+export class VIPComponent implements OnInit {
   members: Partial<Member[]>;
-  predicate = 'liked';
+  predicate = 'visited';
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination;
@@ -18,11 +19,11 @@ export class ListsComponent implements OnInit {
   constructor(private memberService: MembersService) { }
 
   ngOnInit(): void {
-    this.loadLikes();
+    this.loadVisits ();
   }
 
-  loadLikes() {
-    this.memberService.getLikes(this.predicate, this.pageNumber, this.pageSize).subscribe(response => {
+  loadVisits() {
+    this.memberService.getVisits(this.predicate, this.pageNumber, this.pageSize).subscribe(response => {
       this.members = response.result;
       this.pagination = response.pagination;
     })
@@ -30,7 +31,8 @@ export class ListsComponent implements OnInit {
 
   pageChanged(event: any) {
     this.pageNumber = event.page;
-    this.loadLikes();
+    this.loadVisits();
   }
 
 }
+

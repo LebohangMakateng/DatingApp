@@ -33,6 +33,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { PhotoManagementComponent } from './photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { VIPComponent } from './vip/vip.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    VIPComponent
   ],
   imports: [
     BrowserModule,
