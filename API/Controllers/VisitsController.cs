@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Authorize]
-    public class VisitsController: BaseApiController
+    public class VisitsController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
         public VisitsController(IUnitOfWork unitOfWork)
@@ -44,7 +47,17 @@ namespace API.Controllers
             return BadRequest("Failed to visit user");
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<VisitDto>>> GetUserLikes([FromQuery] VisitsParams visitsParams)
+        {
+            visitsParams.UserId = User.GetUserId();
+            var users = await _unitOfWork.VisitsRepository.GetUserVisits(visitsParams);
 
+            Response.AddPaginationHeader(users.CurrentPage,
+             users.PageSize, users.TotalCount, users.TotalPages);
+
+            return Ok(users);
+        }
 
     }
 }
