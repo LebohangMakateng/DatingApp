@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy ="ProfileVisitRole")]
     public class VisitsController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
