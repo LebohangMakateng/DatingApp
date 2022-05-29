@@ -20,6 +20,8 @@ namespace API.Data
 
         public DbSet<UserLike> Likes { get; set; }
 
+        public DbSet<UserVisit> Visits {get; set;}
+
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
@@ -58,6 +60,23 @@ namespace API.Data
                 .HasOne(s => s.LikedUser)
                 .WithMany(l => l.LikedByUsers)
                 .HasForeignKey(s => s.LikedUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            //specify primary key
+            builder.Entity<UserVisit>()
+                .HasKey(k => new { k.SourceeUserId, k.VisitedUserId });
+
+            // Set the relationships
+            builder.Entity<UserVisit>()
+                .HasOne(x => x.SourceeUser)
+                .WithMany(t => t.VistedUsers)
+                .HasForeignKey(s => s.SourceeUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<UserVisit>()
+                .HasOne(s => s.VisitedUser)
+                .WithMany(l => l.VisitedByUsers)
+                .HasForeignKey(s => s.VisitedUserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Message>()
