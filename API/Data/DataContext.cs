@@ -69,7 +69,7 @@ namespace API.Data
             // Set the relationships
             builder.Entity<UserVisit>()
                 .HasOne(x => x.SourceeUser)
-                .WithMany(t => t.VistedUsers)
+                .WithMany(t => t.VisitedUsers)
                 .HasForeignKey(s => s.SourceeUserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
