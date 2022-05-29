@@ -4,5 +4,4 @@ export interface Photo {
     isMain: boolean;
     isApproved: boolean;
     username?: string //https://stackoverflow.com/questions/47942141/optional-property-class-in-typescript
-
 }
