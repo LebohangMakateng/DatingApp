@@ -14,14 +14,14 @@ namespace API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IPhotoRepository _photoRepository;
+        //private readonly IPhotoRepository _photoRepository;
         private readonly IPhotoService _photoService;
-        public AdminController(UserManager<AppUser> userManager, IPhotoRepository photoRepository,
+        public AdminController(UserManager<AppUser> userManager,
              IUnitOfWork unitOfWork, IPhotoService photoService)
         {
             _photoService = photoService;
             _unitOfWork = unitOfWork;
-            _photoRepository = photoRepository;
+           // _photoRepository = photoRepository;
             _userManager = userManager;
         }
 
